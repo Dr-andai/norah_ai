@@ -1,0 +1,26 @@
+<link rel="stylesheet" href="/static/style.css">
+<h2>Data Scientist Upload</h2>
+
+<div id="upload-status"></div>
+
+<form 
+  action="/upload/files"
+  method="post"
+  enctype="multipart/form-data"
+  class="upload-form"
+  hx-post="/upload/files"
+  hx-encoding="multipart/form-data"
+  hx-target="#upload-status"
+  hx-swap="innerHTML"
+>
+  <label>Notebook (.ipynb or .R)</label>
+  <input type="file" name="notebook">
+
+  <label>Study Protocol (.pdf or .docx)</label>
+  <input type="file" name="protocol">
+
+  <label>SOP Checklist (.pdf or .xlsx)</label>
+  <input type="file" name="sop">
+
+  <button type="submit">Upload</button>
+</form>

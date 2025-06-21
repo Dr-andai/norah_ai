@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Mental Health PHQ-9",
+    "repo": "phq9-analysis",
+    "status": "EDA complete, Viz pending",
+    "progress": "50%"
+  },
+  {
+    "name": "Brain Image Project",
+    "repo": "brain-imaging",
+    "status": "Notebooks parsed",
+    "progress": "30%"
+  }
+]
