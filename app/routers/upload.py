@@ -9,9 +9,13 @@ from app.services.llm_document_summary import extract_text_from_pdf, extract_tex
 router = APIRouter()
 templates = Jinja2Templates(directory="app/templates")
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_DIR = os.path.abspath(os.path.join(BASE_DIR, "../uploads"))
-os.makedirs(UPLOAD_DIR, exist_ok=True)
+# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+# UPLOAD_DIR = os.path.abspath(os.path.join(BASE_DIR, "../uploads"))
+# os.makedirs(UPLOAD_DIR, exist_ok=True)
+
+BASE_DIR = "/tmp"
+UPLOAD_DIR = os.path.join(BASE_DIR, "uploads")
+os.makedirs(UPLOAD_DIR, exist_ok=True) 
 
 @router.post("/upload/files", response_class=HTMLResponse)
 async def handle_upload(
