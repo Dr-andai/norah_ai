@@ -1,7 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from app.routers import upload, dashboard, home, summarize
+from app.routers import upload, dashboard, home, summarize, news
 from app.db.uploads_db import init_db
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -22,5 +22,6 @@ app.include_router(home.router)
 app.include_router(upload.router)
 app.include_router(dashboard.router)
 app.include_router(summarize.router)
+app.include_router(news.router)
 
 init_db()

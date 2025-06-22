@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🏥 Norah AI — Mental Health Intelligence Hub</title>
+  <title>Norahaai — Mental Health Intelligence Hub</title>
   <script src="https://unpkg.com/htmx.org@1.9.2"></script>
   <link rel="stylesheet" href="/static/style.css">
   <style>
@@ -37,13 +37,17 @@
 </head>
 <body>
 
-  <h1>🏥 Norah AI — Mental Health Intelligence Hub</h1>
+  <img src="/static/noraahai.jpeg" alt="NorahAI Logo" style="width: 120px;">
+  <h1>Norahaai — Neuroscience & Mental Health Research Hub</h1>
 
   <div class="intro">
     <h2>Welcome</h2>
-    <p>Norah AI empowers mental health researchers and project managers to streamline project monitoring, file uploads, and generate protocol insights using AI. </p>
-    <p>Track real-time updates from your team, upload essential research documents, and summarize protocols instantly.</p>
-    <p>How does the data look like!</p>
+    <p>Norah AI empowers brain and mental health researchers to streamline their projects in the evolving landscape of neuroscience, mental health, and AI.</p>
+    <p>We support this in two core ways:</p>
+    <ul>
+      <li><strong>Curated Updates:</strong> Stay informed through our live feed of exciting frontiers in mental health and brain research.</li>
+      <li><strong>NorahAI Workspace:</strong> Collaborate, track, and analyze your projects with intuitive AI-powered tools.</li>
+    </ul>
   </div>
 
   <div style="margin: 2em 0;">
@@ -52,83 +56,9 @@
   </div>
 
   <h2>📰 Latest Mental Health Insights</h2>
-  <div class="news-snippet">
-    <strong>WHO Report (2024):</strong> Depression and anxiety rates rose by 25% globally. New community-based care guidelines now published.
+  <div id="news-section" hx-get="/api/news" hx-trigger="load" hx-target="#news-section" hx-swap="innerHTML">
+    <div class="news-snippet">Loading latest insights...</div>
   </div>
-  <div class="news-snippet">
-    <strong>UNICEF Study:</strong> Young people in low-resource settings face major delays in diagnosis and care access.
-  </div>
-
-  <hr>
-
-  <section id="project-status">
-    {% for project in projects %}
-      <div class="card">
-        <h3>{{ project.name }}</h3>
-        <p><strong>Status:</strong> {{ project.status }}</p>
-        <p><strong>Progress:</strong> {{ project.progress }}</p>
-        <button 
-          hx-get="/sync/{{ project.repo }}" 
-          hx-target="#project-status" 
-          hx-swap="outerHTML"> 🔄 Refresh</button>
-      </div>
-    {% endfor %}
-  </section>
-
-  {% if role == 'ds' %}
-  <hr>
-  <h2>📄 Upload Analysis Files</h2>
-
-  <form 
-    class="upload-form"
-    hx-post="/upload/files"
-    hx-encoding="multipart/form-data"
-    hx-target="#upload-status">
-
-    <label>📓 Notebook (.ipynb or .R)</label>
-    <input type="file" name="notebook" accept=".ipynb,.R">
-
-    <label>📄 Study Protocol (.pdf or .docx)</label>
-    <input type="file" name="protocol" accept=".pdf,.doc,.docx">
-
-    <label>✅ SOP Checklist (.pdf or .xlsx)</label>
-    <input type="file" name="sop" accept=".pdf,.doc,.xlsx">
-
-    <button type="submit">Upload</button>
-  </form>
-
-  <div id="upload-status" style="margin-top: 1em;"></div>
-  <hr>
-  <h2>📂 Uploaded Files</h2>
-  <table>
-    <tr><th>Filename</th><th>Type</th><th>Uploaded At</th><th>Link</th><th>Summary</th><th>Action</th></tr>
-    {% for file in uploads %}
-      <tr>
-        <td>{{ file[0] }}</td>
-        <td>{{ file[1] }}</td>
-        <td>{{ file[2] }}</td>
-        <td><a href="/uploads/{{ file[0] }}" target="_blank">🔗 Open</a></td>
-        <td>
-          {% if file[1] == 'protocol' %}
-          <button 
-            hx-get="/summarize/protocol/{{ file[0] }}"
-            hx-target="#summary-{{ loop.index }}"
-            hx-swap="innerHTML"> 🧠 Summarize</button>
-          <div id="summary-{{ loop.index }}"></div>
-          {% endif %}
-        </td>
-        <td>
-          <form 
-            hx-post="/delete/file/{{ file[0] }}"
-            hx-target="closest tr"
-            hx-swap="outerHTML remove">
-            <button type="submit">🗑️ Delete</button>
-          </form>
-        </td>
-      </tr>
-    {% endfor %}
-  </table>
-  {% endif %}
 
 </body>
 </html>
